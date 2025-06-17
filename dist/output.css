@@ -373,3 +373,18 @@
 .bg-opacity-50 {
     --tw-bg-opacity: 0.5;
 }
+
+
+.bg-green-300 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(167, 243, 208, var(--tw-bg-opacity));
+}
+
+.text-green-800 {
+    --tw-text-opacity: 1;
+    color: rgba(6, 95, 70, var(--tw-text-opacity));
+}
+
+.bg-opacity-75 {
+    --tw-bg-opacity: 0.75;
+}
