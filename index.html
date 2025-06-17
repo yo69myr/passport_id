@@ -6,128 +6,129 @@
     <title>Passport Reader</title>
     <link href="./dist/output.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <nav class="bg-blue-600 text-white p-4">
-        <ul class="flex space-x-4 justify-center">
-            <li><a href="#" id="registerTab" class="px-4 py-2 hover:bg-blue-700 rounded">Реєстрація</a></li>
-            <li><a href="#" id="loginTab" class="px-4 py-2 hover:bg-blue-700 rounded">Вхід</a></li>
-        </ul>
-    </nav>
+<body class="bg-gradient-to-b from-blue-100 to-pink-100 min-h-screen flex flex-col items-center justify-center font-sans">
+    <!-- Головна сторінка -->
+    <div id="mainSection" class="flex flex-col items-center space-y-6">
+        <h1 class="text-4xl font-bold text-blue-600">Passport Reader</h1>
+        <button id="registerTab" class="w-64 py-4 bg-blue-300 text-blue-800 rounded-lg shadow-md hover:bg-blue-400 hover:scale-105 transition transform duration-300">Реєстрація</button>
+        <button id="loginTab" class="w-64 py-4 bg-pink-300 text-pink-800 rounded-lg shadow-md hover:bg-pink-400 hover:scale-105 transition transform duration-300">Вхід</button>
+    </div>
 
-    <div id="registerSection" class="p-8 max-w-md mx-auto mt-8 bg-white rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold mb-6 text-center">Реєстрація</h1>
+    <!-- Секція реєстрації -->
+    <div id="registerSection" class="hidden w-full max-w-md p-8 bg-white rounded-2xl shadow-lg">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6 text-center">Реєстрація</h1>
         <form id="registerForm" class="space-y-4">
             <div>
                 <label for="registerLogin" class="block text-sm font-medium text-gray-700">Логін</label>
-                <input type="text" id="registerLogin" required class="mt-1 p-2 w-full border rounded-md">
+                <input type="text" id="registerLogin" required class="mt-1 p-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300">
             </div>
             <div>
                 <label for="registerPassword" class="block text-sm font-medium text-gray-700">Пароль</label>
-                <input type="password" id="registerPassword" required class="mt-1 p-2 w-full border rounded-md">
+                <input type="password" id="registerPassword" required class="mt-1 p-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300">
             </div>
             <div>
                 <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Підтвердити пароль</label>
-                <input type="password" id="confirmPassword" required class="mt-1 p-2 w-full border rounded-md">
+                <input type="password" id="confirmPassword" required class="mt-1 p-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300">
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">Зареєструватися</button>
+            <button type="submit" class="w-full py-3 bg-blue-300 text-blue-800 rounded-lg hover:bg-blue-400 hover:scale-105 transition transform duration-300">Зареєструватися</button>
         </form>
-        <div id="registerError" class="mt-4 text-red-600 text-center hidden"></div>
+        <div id="registerError" class="mt-4 text-red-500 text-center hidden"></div>
     </div>
 
-    <div id="loginSection" class="p-8 max-w-md mx-auto mt-8 bg-white rounded-lg shadow-lg hidden">
-        <h1 class="text-2xl font-bold mb-6 text-center">Вхід</h1>
+    <!-- Секція входу -->
+    <div id="loginSection" class="hidden w-full max-w-md p-8 bg-white rounded-2xl shadow-lg">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6 text-center">Вхід</h1>
         <form id="loginForm" class="space-y-4">
             <div>
                 <label for="loginLogin" class="block text-sm font-medium text-gray-700">Логін</label>
-                <input type="text" id="loginLogin" required class="mt-1 p-2 w-full border rounded-md">
+                <input type="text" id="loginLogin" required class="mt-1 p-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300">
             </div>
             <div>
                 <label for="loginPassword" class="block text-sm font-medium text-gray-700">Пароль</label>
-                <input type="password" id="loginPassword" required class="mt-1 p-2 w-full border rounded-md">
+                <input type="password" id="loginPassword" required class="mt-1 p-3 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300">
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">Увійти</button>
+            <button type="submit" class="w-full py-3 bg-pink-300 text-pink-800 rounded-lg hover:bg-pink-400 hover:scale-105 transition transform duration-300">Увійти</button>
         </form>
-        <div id="loginError" class="mt-4 text-red-600 text-center hidden"></div>
+        <div id="loginError" class="mt-4 text-red-500 text-center hidden"></div>
     </div>
 
-    <div id="cabinetSection" class="p-8 max-w-md mx-auto mt-8 bg-white rounded-lg shadow-lg hidden">
-        <h1 class="text-2xl font-bold mb-6 text-center">Особистий кабінет</h1>
-        <div id="userInfo" class="space-y-2">
-            <p><strong>Логін:</strong> <span id="userLogin"></span></p>
-            <p><strong>Дата створення:</strong> <span id="userCreatedAt"></span></p>
-            <p><strong>Підписка:</strong> <span id="userSubscription"></span></p>
+    <!-- Секція акаунта -->
+    <div id="cabinetSection" class="hidden w-full max-w-md p-8 bg-white rounded-2xl shadow-lg">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6 text-center">Акаунт</h1>
+        <div class="space-y-4">
+            <p><strong class="text-gray-700">Логін:</strong> <span id="userLogin" class="text-gray-600"></span></p>
+            <p><strong class="text-gray-700">Дата створення:</strong> <span id="userCreatedAt" class="text-gray-600"></span></p>
+            <p><strong class="text-gray-700">Підписка:</strong> <span id="userSubscription" class="text-gray-600"></span></p>
         </div>
-        <div class="mt-6 text-sm text-gray-600">
-            <p class="font-semibold">Як активувати підписку:</p>
-            <p>Надішліть ваш логін і пароль на email <a href="mailto:your-email@example.com" class="text-blue-600">your-email@example.com</a> або в Telegram <a href="https://t.me/your_username" class="text-blue-600">@your_username</a>. Доступ буде активовано протягом 24 годин.</p>
-        </div>
-        <button id="logoutButton" class="mt-4 w-full bg-red-600 text-white p-2 rounded-md hover:bg-red-700">Вийти</button>
-        <div id="cabinetError" class="mt-4 text-red-600 text-center hidden"></div>
-        <div id="downloadLink" class="mt-4 text-center">
-            <a href="https://your-drive-link/passport_reader.exe" class="text-blue-600">Завантажити програму</a>
-        </div>
+        <button id="logoutButton" class="mt-6 w-full py-3 bg-red-300 text-red-800 rounded-lg hover:bg-red-400 hover:scale-105 transition transform duration-300">Вийти</button>
     </div>
 
-    <div id="adminCabinetSection" class="p-8 max-w-4xl mx-auto mt-8 bg-white rounded-lg shadow-lg hidden">
-        <h1 class="text-2xl font-bold mb-6 text-center">Адмін-кабінет</h1>
-        <table class="w-full border-collapse">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border p-2">Логін</th>
-                    <th class="border p-2">Дата створення</th>
-                    <th class="border p-2">Підписка</th>
-                </tr>
-            </thead>
-            <tbody id="usersTable"></tbody>
-        </table>
-        <button id="adminLogoutButton" class="mt-4 w-full bg-red-600 text-white p-2 rounded-md hover:bg-red-700">Вийти</button>
-        <div id="adminError" class="mt-4 text-red-600 text-center hidden"></div>
+    <!-- Секція адмін-панелі -->
+    <div id="adminSection" class="hidden w-full max-w-4xl p-8 bg-white rounded-2xl shadow-lg">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6 text-center">Адміністративна панель</h1>
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-blue-200">
+                        <th class="border border-blue-300 p-3 text-left">№</th>
+                        <th class="border border-blue-300 p-3 text-left">Логін</th>
+                        <th class="border border-blue-300 p-3 text-left">Дата створення</th>
+                        <th class="border border-blue-300 p-3 text-left">Пароль (хеш)</th>
+                        <th class="border border-blue-300 p-3 text-center">Підписка</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTable" class="text-gray-600"></tbody>
+            </table>
+        </div>
+        <button id="adminLogoutButton" class="mt-6 w-full py-3 bg-red-300 text-red-800 rounded-lg hover:bg-red-400 hover:scale-105 transition transform duration-300">Вийти</button>
+        <div id="adminError" class="mt-4 text-red-500 text-center hidden"></div>
     </div>
 
-    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <p id="modalMessage" class="text-center text-lg"></p>
-            <button id="closeModal" class="mt-4 w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700">Закрити</button>
+    <!-- Модальне вікно -->
+    <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-lg max-w-sm w-full">
+            <p id="modalMessage" class="text-center text-lg text-gray-700"></p>
+            <button id="closeModal" class="mt-4 w-full py-2 bg-blue-300 text-blue-800 rounded-lg hover:bg-blue-400 transition duration-300">Закрити</button>
         </div>
     </div>
 
     <script>
-        const tabs = {
-            register: document.getElementById('registerTab'),
-            login: document.getElementById('loginTab')
-        };
         const sections = {
+            main: document.getElementById('mainSection'),
             register: document.getElementById('registerSection'),
             login: document.getElementById('loginSection'),
             cabinet: document.getElementById('cabinetSection'),
-            adminCabinet: document.getElementById('adminCabinetSection')
+            admin: document.getElementById('adminSection')
         };
         const modal = document.getElementById('modal');
         const modalMessage = document.getElementById('modalMessage');
         const closeModal = document.getElementById('closeModal');
 
-        function showModal(message) {
+        function showModal(message, autoClose = false) {
             modalMessage.textContent = message;
             modal.classList.remove('hidden');
+            if (autoClose) {
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    showSection('main');
+                }, 3000);
+            }
         }
 
         function showSection(section) {
             Object.values(sections).forEach(s => s.classList.add('hidden'));
             sections[section].classList.remove('hidden');
-            Object.values(tabs).forEach(t => t.classList.remove('bg-blue-700'));
-            if (tabs[section]) tabs[section].classList.add('bg-blue-700');
         }
 
         closeModal.addEventListener('click', () => modal.classList.add('hidden'));
 
-        tabs.register.addEventListener('click', () => showSection('register'));
-        tabs.login.addEventListener('click', () => showSection('login'));
+        document.getElementById('registerTab').addEventListener('click', () => showSection('register'));
+        document.getElementById('loginTab').addEventListener('click', () => showSection('login'));
 
         const registerForm = document.getElementById('registerForm');
         const registerError = document.getElementById('registerError');
         const loginForm = document.getElementById('loginForm');
         const loginError = document.getElementById('loginError');
-        const cabinetError = document.getElementById('cabinetError');
         const logoutButton = document.getElementById('logoutButton');
         const adminLogoutButton = document.getElementById('adminLogoutButton');
         const adminError = document.getElementById('adminError');
@@ -154,10 +155,9 @@
                 });
                 const data = await response.json();
                 if (data.status === 'success') {
-                    showModal('Реєстрація успішна! Увійдіть у кабінет.');
                     registerForm.reset();
                     registerError.classList.add('hidden');
-                    showSection('login');
+                    showModal('Акаунт успішно створено!', true);
                 } else {
                     registerError.textContent = data.message || 'Помилка реєстрації';
                     registerError.classList.remove('hidden');
@@ -182,6 +182,8 @@
                 const data = await response.json();
                 if (data.status === 'success') {
                     currentUser = data;
+                    loginForm.reset();
+                    loginError.classList.add('hidden');
                     if (data.is_admin) {
                         const adminResponse = await fetch('https://passport-reader-server.onrender.com/api/admin/users', {
                             method: 'POST',
@@ -192,18 +194,23 @@
                         if (adminData.status === 'success') {
                             const usersTable = document.getElementById('usersTable');
                             usersTable.innerHTML = '';
-                            adminData.users.forEach(user => {
+                            adminData.users.forEach((user, index) => {
                                 const row = document.createElement('tr');
                                 row.innerHTML = `
-                                    <td class="border p-2">${user.login}</td>
-                                    <td class="border p-2">${user.created_at}</td>
-                                    <td class="border p-2 text-center">
-                                        <input type="checkbox" ${user.subscription_active ? 'checked' : ''} onchange="updateSubscription('${user.login}', this.checked, '${login}', '${password}')">
+                                    <td class="border border-blue-300 p-3">${index + 1}</td>
+                                    <td class="border border-blue-300 p-3">${user.login}</td>
+                                    <td class="border border-blue-300 p-3">${user.created_at}</td>
+                                    <td class="border border-blue-300 p-3 text-sm break-all">${user.password_hash}</td>
+                                    <td class="border border-blue-300 p-3 text-center">
+                                        <button onclick="updateSubscription('${user.login}', ${!user.subscription_active}, '${login}', '${password}')"
+                                                class="py-1 px-3 bg-${user.subscription_active ? 'red' : 'green'}-300 text-${user.subscription_active ? 'red' : 'green'}-800 rounded-lg hover:bg-${user.subscription_active ? 'red' : 'green'}-400 transition duration-300">
+                                            ${user.subscription_active ? 'Вимкнути' : 'Увімкнути'}
+                                        </button>
                                     </td>
                                 `;
                                 usersTable.appendChild(row);
                             });
-                            showSection('adminCabinet');
+                            showSection('admin');
                         } else {
                             adminError.textContent = adminData.message || 'Помилка адмін-доступу';
                             adminError.classList.remove('hidden');
@@ -212,8 +219,6 @@
                         document.getElementById('userLogin').textContent = data.login;
                         document.getElementById('userCreatedAt').textContent = data.created_at;
                         document.getElementById('userSubscription').textContent = data.subscription_active ? 'Активна' : 'Неактивна';
-                        loginError.classList.add('hidden');
-                        loginForm.reset();
                         showSection('cabinet');
                     }
                 } else {
@@ -228,12 +233,12 @@
 
         logoutButton.addEventListener('click', () => {
             currentUser = null;
-            showSection('login');
+            showSection('main');
         });
 
         adminLogoutButton.addEventListener('click', () => {
             currentUser = null;
-            showSection('login');
+            showSection('main');
         });
 
         async function updateSubscription(userLogin, isActive, adminLogin, adminPassword) {
@@ -244,7 +249,9 @@
                     body: JSON.stringify({ login: adminLogin, password: adminPassword, user_login: userLogin, subscription_active: isActive })
                 });
                 const data = await response.json();
-                if (data.status !== 'success') {
+                if (data.status === 'success') {
+                    window.location.reload();
+                } else {
                     showModal('Помилка оновлення підписки');
                 }
             } catch (err) {
@@ -252,7 +259,7 @@
             }
         }
 
-        showSection('register');
+        showSection('main');
     </script>
 </body>
 </html>
