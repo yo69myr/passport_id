@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport Reader</title>
     <link href="./dist/output.css" rel="stylesheet">
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <nav class="bg-blue-600 text-white p-4">
@@ -58,7 +57,10 @@
             <p><strong>Дата створення:</strong> <span id="userCreatedAt"></span></p>
             <p><strong>Підписка:</strong> <span id="userSubscription"></span></p>
         </div>
-        <div id="paypal-button-container" class="mt-6"></div>
+        <div class="mt-6 text-sm text-gray-600">
+            <p class="font-semibold">Як активувати підписку:</p>
+            <p>Надішліть ваш логін і пароль на email <a href="mailto:your-email@example.com" class="text-blue-600">your-email@example.com</a> або в Telegram <a href="https://t.me/your_username" class="text-blue-600">@your_username</a>. Доступ буде активовано протягом 24 годин.</p>
+        </div>
         <button id="logoutButton" class="mt-4 w-full bg-red-600 text-white p-2 rounded-md hover:bg-red-700">Вийти</button>
         <div id="cabinetError" class="mt-4 text-red-600 text-center hidden"></div>
         <div id="downloadLink" class="mt-4 text-center">
@@ -249,24 +251,6 @@
                 showModal('Помилка з’єднання');
             }
         }
-
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: { value: '10.00' } // Зміни суму
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    showModal('Оплата успішна! Ваш акаунт буде активовано протягом 24 годин.');
-                });
-            },
-            onError: function(err) {
-                showModal('Помилка оплати. Спробуйте ще раз.');
-            }
-        }).render('#paypal-button-container');
 
         showSection('register');
     </script>
