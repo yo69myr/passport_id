@@ -168,6 +168,44 @@
             }
         });
 
+        async function loadAdminUsers(login, password) {
+            try {
+                const adminResponse = await fetch('https://passport-reader-server.onrender.com/api/admin/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ login, password })
+                });
+                const adminData = await adminResponse.json();
+                if (adminData.status === 'success') {
+                    const usersTable = document.getElementById('usersTable');
+                    usersTable.innerHTML = '';
+                    adminData.users.forEach((user, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="border border-blue-300 p-4">${index + 1}</td>
+                            <td class="border border-blue-300 p-4">${user.login}</td>
+                            <td class="border border-blue-300 p-4">${user.created_at}</td>
+                            <td class="border border-blue-300 p-4 text-sm break-all">${user.password_hash}</td>
+                            <td class="border border-blue-300 p-4 text-center">
+                                <button onclick="updateSubscription('${user.login}', ${!user.subscription_active}, '${login}', '${password}')"
+                                        class="py-2 px-4 bg-${user.subscription_active ? 'red' : 'green'}-300 text-${user.subscription_active ? 'red' : 'green'}-800 rounded-xl hover:bg-${user.subscription_active ? 'red' : 'green'}-400 transition duration-300">
+                                    ${user.subscription_active ? 'Вимкнути' : 'Увімкнути'}
+                                </button>
+                            </td>
+                        `;
+                        usersTable.appendChild(row);
+                    });
+                    showSection('admin');
+                } else {
+                    adminError.textContent = adminData.message || 'Помилка адмін-доступу';
+                    adminError.classList.remove('hidden');
+                }
+            } catch (err) {
+                adminError.textContent = 'Помилка з’єднання з сервером';
+                adminError.classList.remove('hidden');
+            }
+        }
+
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const login = document.getElementById('loginLogin').value;
@@ -185,36 +223,7 @@
                     loginForm.reset();
                     loginError.classList.add('hidden');
                     if (data.is_admin) {
-                        const adminResponse = await fetch('https://passport-reader-server.onrender.com/api/admin/users', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ login, password })
-                        });
-                        const adminData = await adminResponse.json();
-                        if (adminData.status === 'success') {
-                            const usersTable = document.getElementById('usersTable');
-                            usersTable.innerHTML = '';
-                            adminData.users.forEach((user, index) => {
-                                const row = document.createElement('tr');
-                                row.innerHTML = `
-                                    <td class="border border-blue-300 p-4">${index + 1}</td>
-                                    <td class="border border-blue-300 p-4">${user.login}</td>
-                                    <td class="border border-blue-300 p-4">${user.created_at}</td>
-                                    <td class="border border-blue-300 p-4 text-sm break-all">${user.password_hash}</td>
-                                    <td class="border border-blue-300 p-4 text-center">
-                                        <button onclick="updateSubscription('${user.login}', ${!user.subscription_active}, '${login}', '${password}')"
-                                                class="py-2 px-4 bg-${user.subscription_active ? 'red' : 'green'}-300 text-${user.subscription_active ? 'red' : 'green'}-800 rounded-xl hover:bg-${user.subscription_active ? 'red' : 'green'}-400 transition duration-300">
-                                            ${user.subscription_active ? 'Вимкнути' : 'Увімкнути'}
-                                        </button>
-                                    </td>
-                                `;
-                                usersTable.appendChild(row);
-                            });
-                            showSection('admin');
-                        } else {
-                            adminError.textContent = adminData.message || 'Помилка адмін-доступу';
-                            adminError.classList.remove('hidden');
-                        }
+                        await loadAdminUsers(login, password);
                     } else {
                         document.getElementById('userLogin').textContent = data.login;
                         document.getElementById('userCreatedAt').textContent = data.created_at;
@@ -250,7 +259,7 @@
                 });
                 const data = await response.json();
                 if (data.status === 'success') {
-                    window.location.reload();
+                    await loadAdminUsers(adminLogin, adminPassword);
                 } else {
                     showModal('Помилка оновлення підписки');
                 }
